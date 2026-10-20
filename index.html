@@ -3,362 +3,778 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
-<title>段楦暄 · 正在学前端 / suanqaq</title>
-<meta name="description" content="段楦暄（suanqaq）的个人主页：正在学前端，用作品说话。广东佛山。">
-<meta property="og:title" content="段楦暄 · 正在学前端">
-<meta property="og:description" content="正在学前端，用作品说话。">
+<meta name="color-scheme" content="light dark">
+<title>段楦暄 | 正在学前端</title>
+<meta name="description" content="段楦暄（suanqaq）的个人主页：自学 C 语言语法中，能独立完成静态页面。广东佛山，期待加入学校社团。">
 <meta property="og:type" content="profile">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23b3441c'/><text x='32' y='45' font-size='38' text-anchor='middle' fill='%23fffdf8' font-family='sans-serif'>S</text></svg>">
+<meta property="og:title" content="段楦暄 | 正在学前端">
+<meta property="og:description" content="自学 C 语法中，能独立完成静态页面。">
+<meta property="og:url" content="https://suanqaq.github.io/">
+<meta name="theme-color" content="#F1F2F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D0F11" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230D0F11'/><circle cx='32' cy='32' r='9' fill='%232D9CFF'/></svg>">
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem("theme");
+    var dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = saved || (dark ? "dark" : "light");
+  } catch (e) {
+    document.documentElement.dataset.theme = "light";
+  }
+})();
+</script>
 <style>
   :root {
-    --bg: #f6f2ea;
-    --card: #fffdf8;
-    --ink: #1b1a18;
-    --muted: #5f5a54;
-    --line: #ded5c9;
-    --accent: #b3441c;
-    --accent-dark: #8d3414;
-    --radius: 14px;
+    --bg: #F1F2F0;
+    --ink: #141619;
+    --muted: #5E6469;
+    --faint: #62686E;
+    --line: #D5D8DA;
+    --blue: #2D9CFF;
+    --blue-ink: #0A66C2;
+    --blue-soft: rgba(45, 156, 255, 0.15);
+    --blue-0: rgba(45, 156, 255, 0);
+    --pad: clamp(30px, 5vw, 56px);
+    --offset: 64px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+      "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    --mono: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas,
+      "Liberation Mono", monospace;
+  }
+
+  [data-theme="dark"] {
+    --bg: #0D0F11;
+    --ink: #F2F4F5;
+    --muted: #9BA2A8;
+    --faint: #858D93;
+    --line: #24282C;
+    --blue: #4FAEFF;
+    --blue-ink: #8AC8FF;
+    --blue-soft: rgba(79, 174, 255, 0.18);
+    --blue-0: rgba(79, 174, 255, 0);
   }
 
   * { box-sizing: border-box; }
 
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
   }
 
   body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-      "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-    font-size: 17px;
-    line-height: 1.75;
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
-  a { color: var(--accent-dark); }
-
-  a:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 4px;
+  @media (prefers-reduced-motion: no-preference) {
+    body { transition: background-color .3s ease, color .3s ease; }
   }
+
+  /* paper grain, self-contained */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    pointer-events: none;
+    opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+  }
+
+  [data-theme="dark"] body::after {
+    opacity: .05;
+    mix-blend-mode: screen;
+  }
+
+  ::selection { background: var(--blue); color: #06121F; }
+
+  :focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 4px;
+  }
+
+  a { color: inherit; }
+
+  .skip {
+    position: fixed;
+    left: 16px;
+    top: -64px;
+    z-index: 50;
+    padding: 10px 16px;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 13px;
+    transition: top .2s ease;
+  }
+
+  .skip:focus { top: 16px; }
+
+  .page { position: relative; }
 
   .wrap {
-    width: 100%;
-    max-width: 720px;
+    position: relative;
+    max-width: 1120px;
     margin: 0 auto;
-    padding: 0 24px 56px;
+    padding: 0 var(--pad);
   }
 
-  /* ---------- hero ---------- */
-  .hero {
-    padding: clamp(56px, 12vw, 96px) 0 clamp(36px, 7vw, 52px);
+  /* ---------- the line ---------- */
+  .rail {
+    position: absolute;
+    left: calc(var(--pad) + 19px);
+    top: 76px;
+    bottom: 82px;
+    width: 1px;
+    background: var(--line);
+    z-index: 1;
+    pointer-events: none;
   }
 
-  .brand {
+  .rail-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--blue);
+    transform: scaleY(var(--fill, 1));
+    transform-origin: top;
+    will-change: transform;
+  }
+
+  .rail-head {
+    position: absolute;
+    left: 50%;
+    top: calc(var(--fill, 1) * 100%);
+    width: 7px;
+    height: 7px;
+    margin: -3.5px 0 0 -3.5px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 0 5px var(--blue-soft);
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 30px;
+    justify-content: space-between;
+    padding-top: 34px;
   }
 
-  .monogram {
-    flex: none;
-    width: 56px;
-    height: 56px;
+  .mark {
+    width: 38px;
+    height: 38px;
     display: grid;
     place-items: center;
-    border: 1.5px solid var(--accent);
+    border: 1px solid var(--line);
     border-radius: 50%;
-    color: var(--accent);
+    color: var(--ink);
+    text-decoration: none;
     font-family: "Songti SC", "STSong", Georgia, serif;
-    font-size: 26px;
+    font-size: 17px;
     line-height: 1;
+    transition: border-color .2s ease, color .2s ease;
   }
 
-  .eyebrow {
+  .mark:hover { border-color: var(--blue); color: var(--blue-ink); }
+
+  .theme {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color .2s ease, color .2s ease;
+  }
+
+  .theme:hover { border-color: var(--blue); color: var(--blue-ink); }
+
+  .theme svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .icon-sun { display: none; }
+  [data-theme="dark"] .icon-sun { display: block; }
+  [data-theme="dark"] .icon-moon { display: none; }
+
+  /* ---------- hero ---------- */
+  main, .foot { padding-left: var(--offset); }
+
+  .hero {
+    position: relative;
+    min-height: calc(100svh - 96px);
+    display: flex;
+    align-items: center;
+    padding: clamp(48px, 8vh, 96px) 0 56px;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -8% 0 auto 0;
+    height: 62%;
+    background: radial-gradient(50% 50% at 62% 38%, var(--blue-soft), var(--blue-0) 72%);
+    opacity: .5;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  [data-theme="dark"] .hero::before { display: none; }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(180px, .55fr);
+    gap: clamp(32px, 6vw, 80px);
+    align-items: end;
+  }
+
+  .hero-copy { min-width: 0; }
+
+  .name-row {
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(16px, 3vw, 36px);
+  }
+
+  .name-row::after {
+    content: "";
+    flex: 1;
+    min-width: 24px;
+    height: 1px;
+    margin-bottom: .24em;
+    background: var(--line);
+  }
+
+  .name {
     margin: 0;
-    font-size: 12px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: var(--muted);
+    font-family: "Songti SC", "STSong", "SimSun", "Noto Serif SC", Georgia, serif;
+    font-size: clamp(3.2rem, 11.5vw, 8rem);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: 0;
   }
 
-  .brand p { margin: 2px 0 0; font-size: 14px; color: var(--muted); }
-
-  h1 {
-    margin: 0 0 16px;
-    font-size: clamp(2.3rem, 8vw, 3.6rem);
-    line-height: 1.15;
-    letter-spacing: -.02em;
-    font-weight: 700;
-  }
-
-  h1 .handle {
+  .name .mask {
     display: block;
-    margin-top: 10px;
-    font-size: clamp(.95rem, 2.6vw, 1.1rem);
-    font-weight: 500;
-    letter-spacing: .04em;
-    color: var(--muted);
+    overflow: hidden;
+    padding-bottom: .08em;
+    margin-bottom: -.08em;
   }
 
-  .tagline {
-    margin: 0 0 32px;
-    max-width: 28em;
-    font-size: clamp(1.1rem, 3vw, 1.3rem);
-    color: #33302c;
+  .ch {
+    display: inline-block;
+    transform: translateY(112%);
+    transition: transform 1s cubic-bezier(.16, 1, .3, 1);
   }
 
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px 22px;
-    align-items: center;
-  }
+  .is-ready .ch { transform: none; }
+  .ch:nth-child(2) { transition-delay: .08s; }
+  .ch:nth-child(3) { transition-delay: .16s; }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    min-height: 46px;
-    padding: 0 22px;
-    border-radius: 999px;
-    background: var(--accent);
-    color: #fffdf8;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: .98rem;
-    transition: background .15s ease;
-  }
-
-  .btn:hover { background: var(--accent-dark); }
-
-  .link-quiet {
-    font-size: .95rem;
-    color: var(--muted);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 2px;
-  }
-
-  .link-quiet:hover { color: var(--ink); border-color: var(--ink); }
-
-  /* ---------- sections ---------- */
-  section { padding-top: clamp(32px, 6vw, 48px); }
-
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    padding-top: 22px;
-    border-top: 1px solid var(--line);
-    margin-bottom: 22px;
-  }
-
-  .section-num {
+  .handle {
+    margin: 18px 0 0;
+    font-family: var(--mono);
     font-size: 12px;
     letter-spacing: .14em;
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  h2 {
-    margin: 0;
-    font-size: 14px;
-    letter-spacing: .16em;
-    font-weight: 600;
     color: var(--muted);
   }
 
-  .about-text {
-    margin: 0 0 26px;
-    font-size: 1.02rem;
-    color: #33302c;
-    max-width: 34em;
+  .statement {
+    margin: clamp(34px, 6vh, 60px) 0 0;
+    max-width: 22em;
+    font-size: clamp(1.3rem, 2.6vw, 1.72rem);
+    line-height: 1.55;
+    font-weight: 400;
+    letter-spacing: -.01em;
+    text-wrap: balance;
   }
 
-  code {
-    padding: 2px 7px;
-    border-radius: 6px;
-    background: #ece4d8;
-    font-size: .9em;
-    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  .sub {
+    margin: 12px 0 0;
+    font-size: .94rem;
+    color: var(--muted);
   }
 
   .facts {
-    list-style: none;
     margin: 0;
-    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .facts div {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .facts li {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 9px 16px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    font-size: .9rem;
-    line-height: 1.3;
-  }
-
-  .facts span {
-    font-size: .72rem;
-    letter-spacing: .1em;
-    color: var(--muted);
-  }
-
-  /* ---------- contact ---------- */
-  .contact-card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: clamp(22px, 5vw, 32px);
-  }
-
-  .contact-card > p {
-    margin: 0 0 20px;
-    color: #3a3631;
-  }
-
-  .contact-list {
-    margin: 0;
-    display: grid;
-    gap: 14px;
-  }
-
-  .contact-list div {
-    display: grid;
-    grid-template-columns: 72px 1fr;
-    gap: 12px;
     align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line);
   }
 
-  .contact-list dt {
-    font-size: .78rem;
-    letter-spacing: .1em;
+  .facts dt {
+    font-size: 10px;
+    letter-spacing: .14em;
+    color: var(--faint);
+  }
+
+  .facts dd {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--ink);
+    text-align: right;
+  }
+
+  /* ---------- sections ---------- */
+  .section { padding-top: clamp(96px, 15vh, 168px); }
+
+  .sec-head {
+    position: relative;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    margin-bottom: clamp(36px, 6vh, 64px);
+  }
+
+  .sec-head::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--offset) + 19px);
+    top: -1px;
+    width: calc(var(--offset) - 19px);
+    height: 1px;
+    background: var(--line);
+    transition: background-color .3s ease;
+  }
+
+  .section.is-reached .sec-head::before { background: var(--blue); }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+    line-height: 1.15;
+    font-weight: 500;
+    letter-spacing: -.04em;
+    text-wrap: balance;
+  }
+
+  .lede {
+    margin: 10px 0 0;
+    font-size: clamp(1rem, 1.6vw, 1.12rem);
     color: var(--muted);
   }
 
-  .contact-list dd {
-    margin: 0;
-    font-size: 1rem;
-    overflow-wrap: anywhere;
+  .row {
+    display: grid;
+    grid-template-columns: minmax(100px, .8fr) 108px 2fr;
+    gap: 24px;
+    align-items: start;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
   }
 
-  .contact-list dd a {
+  .row:first-child { border-top: 1px solid var(--line); }
+
+  .row h3 {
+    margin: 0;
+    font-size: 1.04rem;
+    font-weight: 600;
+    letter-spacing: -.01em;
+  }
+
+  .state {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: var(--blue-ink);
+  }
+
+  .desc {
+    margin: 0;
+    max-width: 36em;
+    font-size: .94rem;
+    color: var(--muted);
+  }
+
+  .work {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 24px;
+    margin-top: clamp(56px, 9vh, 92px);
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .work .label {
+    margin: 0;
+    font-size: 11px;
+    letter-spacing: .14em;
+    color: var(--faint);
+  }
+
+  .work h3 {
+    margin: 0 0 8px;
+    font-size: 1.04rem;
+    font-weight: 600;
+  }
+
+  .work p {
+    margin: 0 0 16px;
+    max-width: 38em;
+    font-size: .94rem;
+    color: var(--muted);
+  }
+
+  .work a {
+    display: inline-block;
+    max-width: 100%;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink);
     text-decoration: none;
     border-bottom: 1px solid var(--line);
-    padding-bottom: 1px;
+    padding-bottom: 3px;
+    overflow-wrap: anywhere;
+    transition: color .2s ease, border-color .2s ease;
   }
 
-  .contact-list dd a:hover { border-color: var(--accent); }
+  .work a:hover { color: var(--blue-ink); border-color: var(--blue); }
+
+  /* ---------- contact ---------- */
+  .contact-title {
+    margin: 0 0 clamp(36px, 6vh, 56px);
+    max-width: 17em;
+    font-size: clamp(1.6rem, 3.6vw, 2.8rem);
+    line-height: 1.45;
+    font-weight: 500;
+    letter-spacing: -.03em;
+    text-wrap: balance;
+  }
+
+  .contact-title .phrase { display: inline-block; }
+
+  .email {
+    display: inline-block;
+    max-width: 100%;
+    font-size: clamp(1.3rem, 3vw, 2.1rem);
+    font-weight: 500;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 5px;
+    overflow-wrap: anywhere;
+    transition: color .2s ease, border-color .2s ease;
+  }
+
+  .email:hover { color: var(--blue-ink); border-color: var(--blue); }
+
+  .contact-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin-top: 28px;
+    font-size: .9rem;
+    color: var(--muted);
+  }
+
+  .contact-meta a {
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    transition: color .2s ease, border-color .2s ease;
+  }
+
+  .contact-meta a:hover { color: var(--blue-ink); border-color: var(--blue); }
 
   /* ---------- footer ---------- */
-  footer {
-    margin-top: clamp(44px, 8vw, 64px);
-    padding-top: 22px;
+  .foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px 32px;
+    flex-wrap: wrap;
+    margin-top: clamp(96px, 16vh, 180px);
+    padding: 22px 0 40px;
     border-top: 1px solid var(--line);
-    font-size: .82rem;
-    color: var(--muted);
-    line-height: 1.8;
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--faint);
   }
 
-  footer p { margin: 0 0 4px; }
+  .foot p { margin: 0; }
 
-  @media (max-width: 460px) {
-    .contact-list div {
-      grid-template-columns: 1fr;
-      gap: 2px;
+  @media (max-width: 760px) {
+    :root { --offset: 46px; }
+
+    .rail { top: 72px; bottom: 76px; }
+
+    .hero { min-height: 78svh; padding: 40px 0 32px; }
+
+    .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+
+    .name { font-size: clamp(3rem, 15vw, 4.8rem); }
+
+    .row {
+      grid-template-columns: 1fr auto;
+      gap: 4px 16px;
+      padding: 22px 0;
     }
+
+    .row h3 { grid-column: 1; }
+    .state { grid-column: 2; text-align: right; }
+    .desc { grid-column: 1 / -1; margin-top: 4px; }
+
+    .work { grid-template-columns: 1fr; gap: 10px; }
+
+    .contact-title { max-width: 100%; }
+
+    .section { padding-top: 88px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    * { transition: none !important; }
+    .ch { transform: none; transition: none; }
   }
 </style>
+<noscript>
+<style>
+  .ch { transform: none; transition: none; }
+  .theme { display: none; }
+</style>
+</noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "段楦暄",
+  "alternateName": "suanqaq",
+  "url": "https://suanqaq.github.io/",
+  "email": "mailto:2230623711@qq.com",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "佛山",
+    "addressRegion": "广东",
+    "addressCountry": "CN"
+  },
+  "sameAs": ["https://github.com/suanqaq"]
+}
+</script>
 </head>
 <body>
-<div class="wrap">
+<a class="skip" href="#now">跳到主要内容</a>
 
-  <header class="hero">
-    <div class="brand">
-      <div class="monogram" aria-hidden="true">暄</div>
-      <div>
-        <p class="eyebrow">Personal Page</p>
-        <p>广东 · 佛山</p>
-      </div>
+<div class="page">
+  <div class="wrap">
+    <div class="rail" aria-hidden="true">
+      <div class="rail-fill"></div>
+      <div class="rail-head"></div>
     </div>
 
-    <h1>段楦暄<span class="handle">@suanqaq</span></h1>
+    <header class="topbar">
+      <a class="mark" href="#top" aria-label="回到顶部">暄</a>
+      <button class="theme" type="button" aria-label="切换到深色模式" aria-pressed="false">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+        </svg>
+      </button>
+    </header>
 
-    <p class="tagline">正在学前端，用作品说话。</p>
-
-    <div class="actions">
-      <a class="btn" href="mailto:2230623711@qq.com">发邮件</a>
-      <a class="link-quiet" href="https://github.com/suanqaq">GitHub&nbsp;↗</a>
-    </div>
-  </header>
-
-  <main>
-
-    <section id="about" aria-labelledby="about-title">
-      <div class="section-head">
-        <span class="section-num">01</span>
-        <h2 id="about-title">关于</h2>
-      </div>
-
-      <p class="about-text">
-        目前在学前端。这个页面就是第一个作品：一个 <code>index.html</code>，手写 CSS，
-        没有框架，也没有外部依赖，部署在 GitHub Pages 上。
-      </p>
-
-      <ul class="facts">
-        <li><span>状态</span>在学前端</li>
-        <li><span>作品</span>单文件主页</li>
-        <li><span>坐标</span>广东 · 佛山</li>
-      </ul>
-    </section>
-
-    <section id="contact" aria-labelledby="contact-title">
-      <div class="section-head">
-        <span class="section-num">02</span>
-        <h2 id="contact-title">联系我</h2>
-      </div>
-
-      <div class="contact-card">
-        <p>想聊前端，或者只是打个招呼，都欢迎。</p>
-        <dl class="contact-list">
-          <div>
-            <dt>邮箱</dt>
-            <dd><a href="mailto:2230623711@qq.com">2230623711@qq.com</a></dd>
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-name">
+        <div class="hero-inner">
+          <div class="hero-copy">
+          <div class="name-row">
+            <h1 class="name" id="hero-name">
+              <span class="mask"><span class="ch">段</span><span class="ch">楦</span><span class="ch">暄</span></span>
+            </h1>
           </div>
-          <div>
-            <dt>GitHub</dt>
-            <dd><a href="https://github.com/suanqaq">github.com/suanqaq</a></dd>
+          <p class="handle">@suanqaq</p>
+
+          <p class="statement">正在学前端，用作品说话。</p>
+          <p class="sub">自学 C 语法中，能独立完成静态页面。</p>
           </div>
-        </dl>
-      </div>
-    </section>
 
-  </main>
+          <dl class="facts">
+          <div><dt>坐标</dt><dd>广东佛山</dd></div>
+          <div><dt>状态</dt><dd>期待加入</dd></div>
+          <div><dt>现在</dt><dd>C 语法 / HTML / CSS</dd></div>
+          </dl>
+        </div>
+      </section>
 
-  <footer>
-    <p>这个页面本身也是作品：一个 index.html，手写 CSS，没有框架，也没有外部资源。</p>
-    <p>© 2026 段楦暄</p>
-  </footer>
+      <section class="section" id="now" aria-labelledby="now-title">
+        <header class="sec-head">
+          <h2 id="now-title">现在</h2>
+          <p class="lede">正在学，也在做。</p>
+        </header>
 
+        <div class="rows">
+          <article class="row">
+            <h3>C 语言</h3>
+            <p class="state">语法阶段</p>
+            <p class="desc">能读懂基础程序，正在用练习把语法变熟。</p>
+          </article>
+
+          <article class="row">
+            <h3>前端</h3>
+            <p class="state">静态页面</p>
+            <p class="desc">HTML / CSS 能独立完成，这个站就是一次完整的练习。</p>
+          </article>
+
+          <article class="row">
+            <h3>JavaScript</h3>
+            <p class="state">下一步</p>
+            <p class="desc">想让页面从“能看”变成“能用”。</p>
+          </article>
+        </div>
+
+        <div class="work">
+          <p class="label">作品</p>
+          <div>
+            <h3>这个站</h3>
+            <p>单文件 HTML / CSS，响应式布局，零框架、零外部依赖，部署在 GitHub Pages。</p>
+            <a href="https://github.com/suanqaq/suanqaq.github.io">github.com/suanqaq/suanqaq.github.io</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact" aria-labelledby="contact-title">
+        <header class="sec-head">
+          <h2 id="contact-title">联系</h2>
+        </header>
+
+        <p class="contact-title">如果你所在的社团在找一名<span class="phrase">愿意从基础做起</span>的<span class="phrase">成员</span>，<span class="phrase">欢迎来信</span>。</p>
+
+        <a class="email" href="mailto:2230623711@qq.com">2230623711@qq.com</a>
+
+        <div class="contact-meta">
+          <a href="https://github.com/suanqaq">github.com/suanqaq</a>
+          <span>广东佛山</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>© 2026 段楦暄</p>
+      <p>单文件，零外部依赖</p>
+    </footer>
+  </div>
 </div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var page = document.querySelector(".page");
+  var themeBtn = document.querySelector(".theme");
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function setTheme(theme) {
+    root.dataset.theme = theme;
+    themeBtn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+    themeBtn.setAttribute(
+      "aria-label",
+      theme === "dark" ? "切换到浅色模式" : "切换到深色模式"
+    );
+  }
+
+  setTheme(root.dataset.theme || (mq.matches ? "dark" : "light"));
+
+  themeBtn.addEventListener("click", function () {
+    var next = root.dataset.theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+
+  if (mq.addEventListener) {
+    mq.addEventListener("change", function (e) {
+      var saved = null;
+      try { saved = localStorage.getItem("theme"); } catch (err) {}
+      if (!saved) setTheme(e.matches ? "dark" : "light");
+    });
+  }
+
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      root.classList.add("is-ready");
+    });
+  });
+
+  var target = 0.14;
+  var current = 0;
+  var rail = document.querySelector(".rail");
+  var sections = Array.prototype.slice.call(document.querySelectorAll(".section"));
+  var railTop = 0;
+  var railHeight = 1;
+  var sectionTops = [];
+
+  function measure() {
+    var box = rail.getBoundingClientRect();
+    railTop = box.top + window.scrollY;
+    railHeight = box.height || 1;
+    sectionTops = sections.map(function (section) {
+      var head = section.querySelector(".sec-head");
+      return head.getBoundingClientRect().top + window.scrollY;
+    });
+  }
+
+  function markSections() {
+    var headY = railTop + current * railHeight;
+    for (var i = 0; i < sections.length; i++) {
+      var on = headY >= sectionTops[i];
+      if (sections[i].classList.contains("is-reached") !== on) {
+        sections[i].classList.toggle("is-reached", on);
+      }
+    }
+  }
+
+  function compute() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? window.scrollY / max : 0;
+    target = Math.max(0.14, Math.min(1, p));
+  }
+
+  function frame() {
+    var k = reduce ? 1 : 0.14;
+    current += (target - current) * k;
+    if (Math.abs(target - current) < 0.0004) current = target;
+    page.style.setProperty("--fill", current.toFixed(4));
+    markSections();
+    requestAnimationFrame(frame);
+  }
+
+  compute();
+  measure();
+  current = reduce ? target : 0;
+  window.addEventListener("scroll", compute, { passive: true });
+  window.addEventListener("resize", function () { measure(); compute(); });
+  window.addEventListener("load", measure);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(measure);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 </body>
 </html>
